@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cursos.plataforma.models.Curso;
 import com.cursos.plataforma.models.DetalleCurso;
 import com.cursos.plataforma.repositories.CursoRepository;
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("/api/cursos")
-@CrossOrigin(origins="http://localhost:5173")
 public class CursoController {
     @Autowired
     private CursoRepository repositorio;

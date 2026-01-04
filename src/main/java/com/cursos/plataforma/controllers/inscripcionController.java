@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cursos.plataforma.models.Inscripcion;
 import com.cursos.plataforma.repositories.InscripcionRepository;
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("/api/inscripciones")
-@CrossOrigin(origins="*")
+
 public class inscripcionController {
     @Autowired
     private InscripcionRepository repositorio;
