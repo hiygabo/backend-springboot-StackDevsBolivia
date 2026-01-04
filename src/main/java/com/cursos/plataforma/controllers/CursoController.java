@@ -53,6 +53,7 @@ public class CursoController {
             cursoExistente.setDuracion(curso.getDuracion());
             cursoExistente.setFechaInicio(curso.getFechaInicio());
             cursoExistente.setPrecio(curso.getPrecio());
+            cursoExistente.setUrlImagen(curso.getUrlImagen());
 
             DetalleCurso detalleNuevo = curso.getDetalle();
 
