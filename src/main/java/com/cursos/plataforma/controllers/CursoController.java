@@ -13,66 +13,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cursos.plataforma.models.Curso;
-import com.cursos.plataforma.models.DetalleCurso;
-import com.cursos.plataforma.repositories.CursoRepository;
+import com.cursos.plataforma.services.CursoService;
 @CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("/api/cursos")
 public class CursoController {
     @Autowired
-    private CursoRepository repositorio;
+    private CursoService servicio;
 
 
     @GetMapping
     public List<Curso> listarCursos(){
-        return repositorio.findAll();
+        return servicio.listarCursos();
     }
 
     @DeleteMapping ("/{id}")
     public void eliminarCurso(@PathVariable Integer id){
-        repositorio.deleteById(id);
+        servicio.eliminarCurso(id);
     }
 
     @PostMapping
     public Curso guardarCurso (@RequestBody Curso curso){
-        return repositorio.save(curso);
+        return servicio.guardarCurso(curso);
     }
 
     @GetMapping("/{id}")
     public Curso obtenerCursoPorId(@PathVariable Integer id) {
-        return repositorio.findById(id).orElse(null);
+        return servicio.obtenerCursoPorId(id);
     }
 
     @PutMapping ("/{id}")
 
     public Curso actualizarCurso(@PathVariable Integer id, @RequestBody Curso curso){
-        Curso cursoExistente = repositorio.findById(id).orElse(null);
-        if(cursoExistente != null){
-            cursoExistente.setNombre(curso.getNombre());
-            cursoExistente.setDescripcion(curso.getDescripcion());
-            cursoExistente.setDuracion(curso.getDuracion());
-            cursoExistente.setPrecio(curso.getPrecio());
-            cursoExistente.setUrlImagen(curso.getUrlImagen());
-            DetalleCurso detalleNuevo = curso.getDetalle();
-            cursoExistente.setFechaInicio(curso.getFechaInicio());
-            if(detalleNuevo !=null){
-                if(curso.getDetalle() !=null){
-                    curso.getDetalle().setDescripcion(detalleNuevo.getDescripcion());
-                    curso.getDetalle().setTemario(detalleNuevo.getTemario());
-                    curso.getDetalle().setRequisitos(detalleNuevo.getRequisitos());
-                }else{
-                    curso.setDetalle(detalleNuevo);
-                }
-            }
-            return repositorio.save(cursoExistente);
-        }
-        return null;
+        return servicio.actualizarCurso(id, curso);
     }
 
     @GetMapping("/obtenerCursoMayor")
 
     public List<Curso> obtenerCursoConMayPrecio(){
-        return repositorio.obtenerCursosConMayorPrecio();
+        return servicio.obtenerCursoConMayPrecio();
     }
 
     @GetMapping("/holaMundo")
@@ -82,7 +61,7 @@ public class CursoController {
 
     @GetMapping("/cursosOrdenados")
     public List<Curso> obtenerCursosOrdenados(){
-        return repositorio.ordenarCursosPrecioAscendente();
+        return servicio.obtenerCursosOrdenados();
     }
 
 

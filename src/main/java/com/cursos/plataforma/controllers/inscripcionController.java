@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cursos.plataforma.models.Inscripcion;
-import com.cursos.plataforma.repositories.InscripcionRepository;
+import com.cursos.plataforma.services.InscripcionService;
 @CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("/api/inscripciones")
 
 public class inscripcionController {
     @Autowired
-    private InscripcionRepository repositorio;
+    private InscripcionService servicio;
 
     @PostMapping
     public Inscripcion guardaInscripcion(@RequestBody Inscripcion inscripcion){
-        return repositorio.save(inscripcion);
+        return servicio.guardarInscripcion(inscripcion);
     }
 }

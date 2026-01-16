@@ -7,27 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cursos.plataforma.models.Usuario;
-import com.cursos.plataforma.repositories.UsuarioRepository;
+import com.cursos.plataforma.services.AuthService;
 @CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 @RequestMapping("api/auth")
 
 public class AuthController {
     @Autowired
-    private UsuarioRepository repositorio;
+    private AuthService servicio;
 
     @PostMapping("/login")
     public Usuario login(@RequestBody Usuario usuarioLogin){
-        Usuario usuarioEncontrado = repositorio.findByNombreUsuario(usuarioLogin.getNombreUsuario());
-
-        if(usuarioEncontrado != null && usuarioEncontrado.getContraseña().equals(usuarioLogin.getContraseña())){
-            return usuarioEncontrado;
-        }else{
-            return null;
-        }
-
-
-
+        return servicio.login(usuarioLogin);
     }
     
 }
